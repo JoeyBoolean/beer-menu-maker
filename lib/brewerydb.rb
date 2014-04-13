@@ -24,7 +24,8 @@ class BreweryDb
 	def self.get_beer_by_id(id)
 		api = get_api()
 		uri = URI.parse(api[:api_string] + "beer/" + id + "?" + api[:api_key])
-		print uri
+		# print uri
+		# puts "\n"
 		response = Net::HTTP.get_response uri
 		result = JSON.parse(response.body)
 		data = result ["data"]

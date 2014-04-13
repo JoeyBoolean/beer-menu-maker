@@ -1,10 +1,24 @@
+require 'brewerydb'
+
 class BeersController < ApplicationController
   before_action :set_beer, only: [:show, :edit, :update, :destroy]
 
   # GET /beers
   # GET /beers.json
   def index
-    @beers = Beer.all
+    @beers = Beer.limit(10)
+    beer_list = []
+    @beers.each { |a| beer_list.push(a.beer_id)}
+    data = BreweryDb.get_beers_by_ids(beer_list)
+
+    i = 0
+    @beers.each do |b| 
+      if data[i] != nil
+        b.set_beer_info(data[i])
+      end
+      i += 1
+    end
+
   end
 
   # GET /beers/1

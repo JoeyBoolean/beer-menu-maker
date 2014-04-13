@@ -3,6 +3,8 @@
 <p>
   <strong>Beer:</strong>
   <%= @beer.beer_id %>
+  <% beer_info = @beer.get_beer_info() %>
+  <%= beer_info %> 
 </p>
 
 <%= link_to 'Edit', edit_beer_path(@beer) %> |

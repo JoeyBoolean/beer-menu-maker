@@ -14,6 +14,7 @@
     <% @beers.each do |beer| %>
       <tr>
         <td><%= beer.beer_id %></td>
+        <td><%= beer.get_beer_info()["name"] %></td>
         <td><%= link_to 'Show', beer %></td>
         <td><%= link_to 'Edit', edit_beer_path(beer) %></td>
         <td><%= link_to 'Destroy', beer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
