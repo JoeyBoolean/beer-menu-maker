@@ -15,10 +15,11 @@
       <p><%= beer_info["description"] %></p>
       </div>
     </div>
-    <div class="btn-group">
-    <%= link_to 'Back', beers_path, :class => "btn"%>
-    <%= link_to 'Edit', edit_beer_path(@beer), :class => "btn" %>
-    <%= link_to 'Destroy', @beer, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn" %>
+    <p>
+    <%= link_to 'Back', beers_path %> | 
+    <%= link_to 'Edit', edit_beer_path(@beer)%> | 
+    <%= link_to 'Delete', @beer, method: :delete, data: { confirm: 'Are you sure?' }%>
+	</p>
   </div>
   </div>
 
