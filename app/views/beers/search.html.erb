@@ -1,0 +1,42 @@
+<h1>Beer Search</h1>
+
+<%= form_tag("/beers/search", method: "get") do %>
+  <%= label_tag(:q, "Search for:") %>
+  <%= text_field_tag(:q, nil, placeholder: "Enter a beer to search for", :class => "form-control") %>
+  <%= submit_tag("Search", :class => "btn")%>
+<% end %>
+
+
+<%if @data %>
+<div>
+	<% @data.each do |beer| :beer%>
+	<div class="well">
+	<div class="media">
+
+      	<% if beer["labels"] %>
+  			<%= image_tag(beer["labels"]["medium"], :class => "media-object pull-left") %>
+      	<% else %>
+      		<%= image_tag("no_image.jpg", :class => "media-object pull-left") %>
+		<% end %>
+
+		<div class="media-body">
+			<div class="media-heading">
+				<h3><%= beer["name"] %></h3>
+			</div>
+			<p>Abv:<%= beer["abv"] %>% - Style: 
+				<% if beer["style"] %>
+				<%= beer["style"]["name"] %> 
+				<% else %>
+				N/A
+				<%end%>
+			</p>
+			<p><%= beer["description"] %></p>
+  		</div>
+				
+  		<% b = {:beer => {:beer_id => beer["id"]}}%>
+  		<%= link_to 'Add Beer', beers_path(b), method: :post, data: b, :class => "btn btn-mini" %>
+  	</div>
+  </div>
+  <% end %>
+<% end %>
+<%= link_to 'Back', beers_path %>

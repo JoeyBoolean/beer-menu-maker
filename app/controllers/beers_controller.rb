@@ -1,22 +1,37 @@
 require 'brewerydb'
 
 class BeersController < ApplicationController
+  
+  @beer_data = []
+
   before_action :set_beer, only: [:show, :edit, :update, :destroy]
+
 
   # GET /beers
   # GET /beers.json
+
+  def get_beer_data()
+    @beer_data
+  end
+
+  def set_beer_list(data)
+    @beer_data = data
+  end
+
   def index
     @beers = Beer.limit(10)
     beer_list = []
     @beers.each { |a| beer_list.push(a.beer_id)}
     data = BreweryDb.get_beers_by_ids(beer_list)
-
+    set_beer_list(data)
     i = 0
     @beers.each do |b| 
-      if data[i] != nil
-        b.set_beer_info(data[i])
+      data.each do |d|
+        if d["id"] == b.beer_id
+          b.set_beer_info(d)
+        end
       end
-      i += 1
+      
     end
 
   end
@@ -24,7 +39,24 @@ class BeersController < ApplicationController
   # GET /beers/1
   # GET /beers/1.json
   def show
+    puts @beer.beer_id
+    data = BreweryDb.get_beer_by_id(@beer.beer_id)
+    @beer.set_beer_info(data)
   end
+
+  # POST /beers/search
+  def search
+    search = params["q"]
+    puts search
+    @data = nil
+    if search
+      search = search.chomp
+      search = search.gsub(/[ ]/, "+")
+      @data = BreweryDb.search_beer(search)
+    end
+  end
+
+
 
   # GET /beers/new
   def new
@@ -39,7 +71,7 @@ class BeersController < ApplicationController
   # POST /beers.json
   def create
     @beer = Beer.new(beer_params)
-
+    puts @beer
     respond_to do |format|
       if @beer.save
         format.html { redirect_to @beer, notice: 'Beer was successfully created.' }
@@ -78,11 +110,16 @@ class BeersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_beer
-      @beer = Beer.find(params[:id])
+      @beer = @beer || Beer.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def beer_params
       params.require(:beer).permit(:beer_id)
+      #params
+    end
+
+    def search_params
+      params.require(:q).permit(:q)
     end
 end

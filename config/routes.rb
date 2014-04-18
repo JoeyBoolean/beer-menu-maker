@@ -1,4 +1,6 @@
 BeerMenuMaker::Application.routes.draw do
+  get "beers/search"
+  get "beer/search"
   resources :beers
 
   # The priority is based upon order of creation: first created -> highest priority.

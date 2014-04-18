@@ -1,11 +1,25 @@
-<p id="notice"><%= notice %></p>
+  <div class="well">
+  <div class="media">
+    <% beer_info = @beer.get_beer_info() %>
+    <% if beer_info["labels"] %>
+        <%= image_tag(beer_info["labels"]["medium"], :class => "media-object pull-left") %>
+        <% else %>
+          <%= image_tag("no_image.jpg", :class => "media-object pull-left") %>
+    <% end %>
 
-<p>
-  <strong>Beer:</strong>
-  <%= @beer.beer_id %>
-  <% beer_info = @beer.get_beer_info() %>
-  <%= beer_info %> 
-</p>
+    <div class="media-body">
+      <div class="media-heading">
+        <h3><%= beer_info["name"] %></h3>
+      </div>
+      <p>Abv:<%= beer_info["abv"] %>% - Style: <%= beer_info["style"]["name"] %></p>
+      <p><%= beer_info["description"] %></p>
+      </div>
+    </div>
+    <div class="btn-group">
+    <%= link_to 'Back', beers_path, :class => "btn"%>
+    <%= link_to 'Edit', edit_beer_path(@beer), :class => "btn" %>
+    <%= link_to 'Destroy', @beer, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn" %>
+  </div>
+  </div>
 
-<%= link_to 'Edit', edit_beer_path(@beer) %> |
-<%= link_to 'Back', beers_path %>
+

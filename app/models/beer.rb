@@ -5,6 +5,7 @@ class Beer < ActiveRecord::Base
 
 	def set_beer_info(name)
 		@beer_info = name
+		puts name
 	end
 
 	def get_beer_info()
