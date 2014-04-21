@@ -22,10 +22,20 @@
         <span class="icon-bar"></span>
       </a>
       <a class="brand" href="#">Beer Menu</a>
-      <div class="nav-collapse">
+      <div class="nav-collapse pull-right">
         <ul class="nav">
           <li><%= link_to "Beer List", beers_path %></li>
           <li><%= link_to "Search Beers", beers_search_path %></li>
+          <li class="divider"></li>
+          <% if signed_in? %>
+          <li>
+            <%= link_to "Sign Out", signout_path, method: "delete" %>
+          </li>
+          <% else %>
+          <li>
+            <%= link_to "Sign In", signin_path %> 
+          </li>
+          <% end %>
         </ul>
       </div>
     </div>

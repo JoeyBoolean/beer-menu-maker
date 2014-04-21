@@ -11,4 +11,7 @@ class Beer < ActiveRecord::Base
 	def get_beer_info()
 		@beer_info
 	end
+	def check_beer(beer_id)
+		find_by(beer_id: beer_id)
+	end
 end

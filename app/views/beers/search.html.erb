@@ -32,9 +32,10 @@
 			</p>
 			<p><%= beer["description"] %></p>
   		</div>
-				
+		<% if signed_in? && !check_beer(beer["id"])%>	
   		<% b = {:beer => {:beer_id => beer["id"]}}%>
   		<%= link_to 'Add Beer', beers_path(b), method: :post, data: b, :class => "btn btn-mini" %>
+  		<% end %>
   	</div>
   </div>
   <% end %>
