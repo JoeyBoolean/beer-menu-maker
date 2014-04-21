@@ -4,6 +4,7 @@ class BeersController < ApplicationController
   
   @beer_data = []
 
+  before_action :user_signed_in, only: [:create, :edit, :update, :destroy] 
   before_action :set_beer, only: [:show, :edit, :update, :destroy]
 
 
@@ -121,5 +122,9 @@ class BeersController < ApplicationController
 
     def search_params
       params.require(:q).permit(:q)
+    end
+
+    def user_signed_in
+      redirect_to signin_url, notice: "Please Sign In." unless signed_in?
     end
 end
