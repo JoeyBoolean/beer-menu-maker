@@ -1,5 +1,7 @@
 BeerMenuMaker::Application.routes.draw do
-  resources :users
+  root 'beers#index'
+
+  resources :users, only: [:new, :create, :destroy]
 
   get "beers/search"
   get "beer/search"

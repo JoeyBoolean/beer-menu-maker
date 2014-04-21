@@ -75,7 +75,7 @@ class BeersController < ApplicationController
     puts @beer
     respond_to do |format|
       if @beer.save
-        format.html { redirect_to @beer, notice: 'Beer was successfully created.' }
+        format.html { redirect_to beers_path, notice: 'Beer was successfully created.' }
         format.json { render action: 'show', status: :created, location: @beer }
       else
         format.html { render action: 'new' }
