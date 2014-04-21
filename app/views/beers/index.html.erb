@@ -29,9 +29,11 @@
           <p><%= beer_info["description"] %></p>
           </div>
         </div>
+        <% if signed_in? %>
         <p><%= link_to 'Edit', edit_beer_path(beer) %> | 
         <%= link_to 'Delete', beer, method: :delete, data: { confirm: 'Are you sure?' }%>
-      </p>
+        </p>
+        <% end %>
       </div>
     <% end %>
   </tbody>

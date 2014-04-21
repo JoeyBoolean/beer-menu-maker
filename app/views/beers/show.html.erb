@@ -16,9 +16,11 @@
       </div>
     </div>
     <p>
-    <%= link_to 'Back', beers_path %> | 
+    <%= link_to 'Back', beers_path %>
+    <% if signed_in? %> | 
     <%= link_to 'Edit', edit_beer_path(@beer)%> | 
     <%= link_to 'Delete', @beer, method: :delete, data: { confirm: 'Are you sure?' }%>
+    <% end %>
 	</p>
   </div>
   </div>
