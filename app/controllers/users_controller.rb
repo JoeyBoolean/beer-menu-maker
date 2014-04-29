@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  before_action :validate_set, only: :validate
   # GET /users
   # GET /users.json
   def index
@@ -10,6 +10,17 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+  end
+
+  def validate
+    
+    respond_to do |format|
+      if @user.update_attribute(:validated, true)
+        format.html { redirect_to signin_path, notice: 'User was successfully verified.' }
+      else
+        format.html { render action: 'new', notice: 'Failed to update' }
+      end
+    end
   end
 
   # GET /users/new
@@ -71,4 +82,9 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
+
+    def validate_set
+      @user = User.find_by(validation: params[:validation])
+    end
+
 end
