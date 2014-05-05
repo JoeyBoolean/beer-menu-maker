@@ -2,6 +2,8 @@ Beer Menu Maker
 ========
 ~Joey Bachand
 
+The app is available to use here http://mighty-retreat-1847.herokuapp.com/
+
 User Stories
 ---
 + Beers must be able to be searched by names and return a list of results.
